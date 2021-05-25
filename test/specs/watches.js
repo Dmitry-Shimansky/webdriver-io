@@ -1,3 +1,5 @@
+import { expect as chaiExpect } from "chai";
+
 describe('Watches Page', () => {
     it('should show the banner container', function () {
         browser.url('https://www.ebay.com/b/Watches-Parts-Accessories/260324/bn_2408535');
@@ -53,10 +55,17 @@ describe('Watches Page', () => {
                 expect(link).toHaveLinkContaining('/260324/');
                 expect(link).toBeClickable();
             }
-        };
+        }
+        ;
     });
 
-    it('should click on the shop button and verify the new url', function () {
+    it('should click on the brand button and verify the new url', function () {
+        const button = $('div[id="s0-27-9-0-1[0]-0-1[0]-0-xCarousel-x-carousel-items"] ul').$$('li')[0];
+        button.click();
 
+        const url = browser.getUrl();
+        chaiExpect(url).to.include('/260325/');
+
+        expect(browser).toHaveUrl('https://www.ebay.com/b/Watches/260325/bn_7117208191');
     });
 })
