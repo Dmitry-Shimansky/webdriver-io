@@ -32,13 +32,13 @@ describe('Watches Page', () => {
     it('should show the Category title', function () {
         const category = $('div.pagecontainer__center.PR_right_wrap section:nth-child(1) h2');
         const categoryText = category.getText();
-        //WebDriverIO
+        //WebDriverIO expect method
         expect(category).toHaveTextContaining('Category');
-        //Chai expect
+        //Chai expect method
         chaiExpect(categoryText).to.not.be.empty;
-        //Chai should
+        //Chai should method
         category.should.not.be.empty;
-        //Chai assert
+        //Chai assert method
         assert.isNotEmpty(categoryText);
     });
 
