@@ -3,10 +3,21 @@ import WatchesPage from "../pageobjects/newpage/watches.page";
 
 describe('Watches Page', () => {
 
+    before(() => {
+        WatchesPage.open();
+    });
+
+    after(() => {
+        browser.url('https://webdriver.io/docs/pageobjects/');
+        browser.pause(3000);
+    });
+
+    afterEach(() => {
+        browser.refresh();
+    });
 
     it('should show the banner container', function () {
 
-        WatchesPage.open();
         WatchesPage.checkLangOnPage;
         WatchesPage.bannerContainer
             .forEach((item) => {
@@ -21,7 +32,7 @@ describe('Watches Page', () => {
 
     it('should contain link and name on buttons and verify its clickable', function () {
 
-        const watchBrands = ["Seiko", "Rolex", "Unbranded", "Omega", "Casio", "Citizen", "Bulova", "Hamilton", "Timex", "TAG Heuer", "Breitling"];
+        const watchBrands = ["Seiko", "Rolex", "Unbranded", "OMEGA", "Casio", "Citizen", "Bulova", "Hamilton", "Timex", "TAG Heuer", "Breitling"];
 
         const receivedWatchesBrands = WatchesPage.brands;
 
@@ -29,9 +40,9 @@ describe('Watches Page', () => {
             let elem = receivedWatchesBrands.$$('li')[i].$('p').getText();
             let link = receivedWatchesBrands.$$('li')[i].$('a');
             if (elem !== '') {
-                // console.log("Item for check: ", elem);
-                // console.log("Looking for item in the watchBrands: ", watchBrands.find(item => item === elem));
-                expect(elem).toContain(watchBrands.find(item => item === elem));
+                console.log("Item for check: ", elem);
+                console.log("Looking for item in the watchBrands: ", watchBrands.find(item => item === elem));
+                expect(elem).toContain(watchBrands.find(item => item.toLowerCase() === elem.toLowerCase()));
                 expect(link).toHaveLinkContaining('/260324/');
                 expect(link).toBeClickable();
             }
