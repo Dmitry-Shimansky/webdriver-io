@@ -1,7 +1,7 @@
 import {expect as chaiExpect, assert} from "chai";
 import 'chai/register-should';
 
-describe('Watches Page', () => {
+describe.skip('Watches Page', () => {
     it('should show the banner container', function () {
         browser.url('https://www.ebay.com/b/Watches-Parts-Accessories/260324/bn_2408535');
 

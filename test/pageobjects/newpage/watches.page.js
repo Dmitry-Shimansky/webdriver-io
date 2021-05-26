@@ -46,8 +46,30 @@ class WatchesPage extends Page {
         return $('div[id="s0-27-9-0-1[0]-0-1[0]-0-xCarousel-x-carousel-items"] ul').$$('li')[0];
     }
 
+    get watchesCategoryList() {
+        return $$('section[id="s0-16-13_2-0-1[0]-0-0"] ul li');
+    }
+
+    getWatchesCategoryListText() {
+        const watchesList = [];
+        this.watchesCategoryList.map((element) => watchesList.push(element.getText()));
+        return watchesList;
+    }
+
+    get fashionLink() {
+        return $$('.hl-cat-nav__js-tab a[href*="Fashion"]')[0];
+    }
+
+    get watchesLink() {
+        return $('.hl-cat-nav__sub-cat-col a[href*="Wristwatches"]');
+    }
+
+    get watchPartsAccessoriesCategory() {
+        return $('nav.b-breadcrumb.b-breadcrumb--banner-override a[href*="Watches-Parts-Accessories"]');
+    }
+
     open() {
-        super.open('https://www.ebay.com/b/Watches-Parts-Accessories/260324/bn_2408535')
+        super.open('/');
     }
 }
 
