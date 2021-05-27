@@ -1,6 +1,12 @@
 const timeout = process.env.DEBUG ? 60000 * 60 : 60000;
 
 exports.config = {
+    // ++++++++++++++++++++++++++
+    // Browserstack Configuration
+    // ++++++++++++++++++++++++++
+    user: process.env.BROWSERSTACK_USERNAME,
+    key: process.env.BROWSERSTACK_ACCESS_KEY,
+
     //
     // ====================
     // Runner Configuration
@@ -120,7 +126,7 @@ exports.config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: ['chromedriver', 'firefox-profile'],
+    services: ['selenium-standalone'],
 
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
@@ -142,9 +148,14 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: [['allure', {
+    reporters: [
+        ['allure', {
         outputDir: 'allure-results',
-    }]],
+    }],
+        ['junit', {
+            outputDir: './junit-report'
+        }]
+    ],
 
     //
     // Options to be passed to Mocha.
@@ -233,8 +244,11 @@ exports.config = {
     /**
      * Function to be executed after a test (in Mocha/Jasmine).
      */
-    // afterTest: function(test, context, { error, result, duration, passed, retries }) {
-    // },
+    afterTest: function (test, context, {error, result, duration, passed, retries}) {
+        if (error) {
+            browser.takeScreenshot();
+        }
+    },
 
 
     /**
